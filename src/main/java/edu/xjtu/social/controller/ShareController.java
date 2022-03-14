@@ -18,7 +18,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
-
+/**
+ * <p>
+ * 前端控制器
+ * </p>
+ *
+ * @author yuyueq
+ * @since 2022-01-23
+ */
 @Controller
 public class ShareController {
     @Autowired
