@@ -8,6 +8,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * <p>
+ * 前端控制器
+ * </p>
+ *
+ * @author yuyueq
+ * @since 2022-01-23
+ */
+
 @Controller
 public class PraiseController {
     @Autowired

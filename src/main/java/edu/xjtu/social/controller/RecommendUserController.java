@@ -16,8 +16,13 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
- * write by qianqianjun
+ * <p>
+ * 前端控制器
  * 用于实现向用户推荐朋友的功能
+ * </p>
+ *
+ * @author yuyueq
+ * @since 2022-01-23
  */
 @Controller
 public class RecommendUserController {

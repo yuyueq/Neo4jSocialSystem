@@ -9,10 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
+
 /**
+ * <p>
+ * 前端控制器
  * 用于返回界面信息
- * write by qianqianjun
+ * </p>
+ *
+ * @author yuyueq
+ * @since 2022-01-23
  */
+
 @Controller
 public class RouterController {
     @Autowired

@@ -15,6 +15,15 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * <p>
+ * 前端控制器
+ * </p>
+ *
+ * @author yuyueq
+ * @since 2022-01-23
+ */
+
 @Controller
 public class HobbyController {
     public static boolean contains(ArrayList<Hobby> hobbies,Hobby target){

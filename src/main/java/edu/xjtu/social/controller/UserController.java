@@ -17,6 +17,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 
+/**
+ * <p>
+ * 前端控制器
+ * 用于返回界面信息
+ * </p>
+ *
+ * @author yuyueq
+ * @since 2022-01-23
+ */
+
 @Controller
 public class UserController {
     @Autowired
