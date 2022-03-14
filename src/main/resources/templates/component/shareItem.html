@@ -1,5 +1,9 @@
 <div th:fragment="shareitem(shares)" xmlns:th="http://www.w3.org/1999/xhtml">
-<script type="text/javascript" th:inline="javascript">
+    <link type="text/css" href="../static/layui/css/layui.css"/>
+    <script type="text/javascript" src="/layui/layui.js"></script>
+    <script type="text/javascript" src="/layui/layui.all.js"></script>
+
+    <script type="text/javascript" th:inline="javascript">
     function praiseit(shareid) {
         var formData=new FormData();
         formData.append("account",[[${user.account}]])
@@ -15,7 +19,7 @@
                 icon.setAttribute("style","color:red;");
                 number.innerHTML=JSON.parse(xhr.response).data;
             }else{
-                alert("操作失败，请联系管理员!");
+                layer.alert("操作失败，请联系管理员!",{icon: 2});
             }
         };
         xhr.send(formData);
@@ -36,7 +40,7 @@
                 icon.setAttribute("style","");
                 number.innerHTML=JSON.parse(xhr.response).data;
             }else{
-                alert("操作失败，请联系管理员!");
+                layer.alert("操作失败，请联系管理员!",{icon: 2});
             }
         };
         xhr.send(formData);
@@ -65,11 +69,12 @@
     <div class="post__wrap">
         <div class="post__location">
             <i class="icon ion-ios-navigate"></i>
-            <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[[${item.address}]]</font></font></span>
+            <span><span style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">[[${item.address}]]</span></span></span>
         </div>
     </div>
 
-    <h2 class="post__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[[${item.title}]]</font></font></h2>
+    <h2 class="post__title"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">[[${item.title}]]</span></span></h2>
 
     <div class="post__description">
         <p>[[${item.content}]]</p>
@@ -83,12 +88,13 @@
         <div>
             <a class="post__likes" th:onclick="@{'praiseit('+${item.id}+')'}" th:id="@{'btn-'+${item.id}}">
                 <i class="icon ion-ios-heart" th:id="@{'icon-'+${item.id}}"></i>
-                <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" th:id="@{'share-'+${item.id}}"></font></font></span>
+                <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" th:id="@{'share-'+${item.id}}"></span></span></span>
             </a>
         </div>
         <div class="post__views">
             <i class="icon ion-ios-eye"></i>
-            <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[[${item.relatedHobby}]]</font></font></span>
+            <span><span style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">[[${item.relatedHobby}]]</span></span></span>
         </div>
     </div>
 </div>

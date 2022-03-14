@@ -6,6 +6,10 @@
 <script type="text/javascript" src="/js/axios.min.js"></script>
 <script type="text/javascript" src="/js/vue.min.js"></script>
 <script type="text/javascript" src="/js/vue-resource.min.js"></script>
+<link type="text/css" href="../static/layui/css/layui.css"/>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+
 <header th:replace="component/header::header(${user})"></header>
 <!-- end header -->
 
@@ -196,17 +200,17 @@
                         var fileInput = document.getElementById("filepath");
                         var filepath = fileInput.files[0];
                         if (filepath == null)
-                            alert("请您先选择图片");
+                            layer.confirm("请您先上传图片！", {title:'提示信息',icon: 1})
                         else {
                             param.append("file", filepath);
                             this.$http.post('/upload', param, {emulateJSON: true}).then(function (res) {
                                 if (res.status === 200) {
-                                    alert("上传成功");
+                                    layer.alert("上传成功",{icon: 6});
                                     this.imgurl = "/upload/" + res.data.data;
                                     document.getElementById("upload_img").setAttribute("src", this.imgurl);
                                 } else {
-                                    alert("操作失败");
-                                    alert(res.status);
+                                    layer.alert("操作失败，请联系管理员!",{icon: 2});
+                                    layer.alert(res.status,{icon: 2});
                                 }
                             }, function (res) {
                                 console.log(res.status);
@@ -215,7 +219,7 @@
                     },
                     fixpass: function () {
                         if (this.newpass == '' || this.confirmpass == '')
-                            alert("请您完整填写信息");
+                            layer.confirm("请您输入完整的信息！", {title:'提示信息',icon: 0})
                         else {
                             this.$http.post('/user/fixpass', {
                                 account: this.account,
@@ -223,10 +227,10 @@
                                 newpass: this.newpass
                             }, {emulateJSON: true}).then(function (res) {
                                 if (res.status === 200) {
-                                    alert("密码修改成功！");
+                                    layer.alert("密码修改成功!",{icon: 6});
                                 } else {
-                                    alert("操作失败");
-                                    alert(res.status);
+                                    layer.alert("操作失败，请联系管理员!",{icon: 2});
+                                    layer.alert(res.status,{icon: 2});
                                 }
                             }, function (res) {
                                 console.log(res.status);
@@ -235,7 +239,7 @@
                     },
                     fixinfo: function () {
                         if (this.nickname == '' || this.age == '' || this.address == '' || this.email == '')
-                            alert("请您填写完整的信息");
+                            layer.confirm("请您输入完整的信息！", {title:'提示信息',icon: 0})
                         else {
                             this.$http.post('/user/fixinfo', {
                                 account: this.account,
@@ -245,10 +249,10 @@
                                 email: this.email,
                             }, {emulateJSON: true}).then(function (res) {
                                 if (res.status === 200) {
-                                    alert("修改成功，请重新登录系统更新状态！");
+                                    layer.alert("修改成功，请重新登录系统更新状态！",{icon: 6});
                                 } else {
-                                    alert("操作失败");
-                                    alert(res.status);
+                                    layer.alert("操作失败，请联系管理员!",{icon: 2});
+                                    layer.alert(res.status,{icon: 2});
                                 }
                             }, function (res) {
                                 console.log(res.status);
@@ -258,16 +262,16 @@
                     fiximg: function () {
                         console.log(this.imgurl);
                         if (this.imgurl == '' || this.imgurl == null)
-                            alert("请您先上传图片");
+                            layer.confirm("请您先上传图片！", {title:'提示信息',icon: 1})
                         else {
                             this.$http.post('/user/fiximg', {
                                 account: this.account,
                                 imgurl: this.imgurl
                             }, {emulateJSON: true}).then(function (res) {
                                 if (res.status === 200) {
-                                    alert("头像更改成功，请重新登录系统更新状态！");
+                                    layer.alert("头像更改成功，请重新登录系统更新状态！",{icon: 6});
                                 } else {
-                                    alert(res.status);
+                                    layer.alert(res.status,{icon: 2});
                                 }
                             }, function (res) {
                                 console.log(res.status);

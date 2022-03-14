@@ -1,4 +1,8 @@
-<div class="col-12 col-md-5 col-lg-4 col-xl-3" th:fragment="userinfo(user)" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="col-12 col-md-5 col-lg-4 col-xl-3" th:fragment="userinfo(user)" xmlns:th="http://www.w3.org/1999/xhtml" style="float: left">
+    <link type="text/css" href="../static/layui/css/layui.css"/>
+    <script type="text/javascript" src="/layui/layui.js"></script>
+    <script type="text/javascript" src="/layui/layui.all.js"></script>
+
     <!-- user -->
     <div class="user">
         <div class="user__head" style="background-color: rgb(55, 145, 229)">
@@ -38,14 +42,14 @@
                 <p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">我的关注</span></span></p>
                 <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">
                     <a th:if="${myfollowing}>0" href="/user/myfollowing">[[${myfollowing}]]</a>
-                    <a th:if="${myfollowing}==0" onclick="alert('您还没有关注任何人呢～')">[[${myfollowing}]]</a>
+                    <a th:if="${myfollowing}==0" onclick="layer.alert('您还没有关注任何人呢～',{icon: 6})">[[${myfollowing}]]</a>
                 </span></span></span>
             </li>
             <li>
                 <p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">关注者</span></span></p>
                 <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">
                     <a th:if="${follower}>0" href="/user/follower">[[${follower}]]</a>
-                    <a th:if="${follower}==0" onclick="alert('还没有人关注你呢～')">[[${follower}]]</a>
+                    <a th:if="${follower}==0" onclick="layer.alert('还没有人关注你呢～',{icon: 6})">[[${follower}]]</a>
                 </span></span></span>
             </li>
         </ul>

@@ -1,6 +1,10 @@
 ﻿<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" class="translated-ltr">
 <head th:replace="cssloader::cssloader(${title})"></head>
 <body>
+<link type="text/css" href="../static/layui/css/layui.css"/>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+
 <!-- header -->
 <header th:replace="component/header::header(${user})"></header>
 <!-- end header -->
@@ -47,17 +51,20 @@
                                     var responsetext = JSON.parse(xhr.response);
                                     console.log(responsetext);
                                     if (responsetext.ok) {
-                                        alert("已成功关注");
+                                        layer.msg('已成功关注', {icon: 6});
+                                        window.setTimeout(function () {
+                                            window.location.reload();
+                                        },1000);//毫秒
                                         var btn = document.getElementById("btn-" + account);
                                         btn.setAttribute("class", "post__actions-btn post__actions-btn--blue");
                                         btn.innerHTML = '<span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">取关</span></span></span>';
                                         btn.setAttribute("onclick", "unfollowit(this.id)");
                                     } else {
-                                        alert("操作失败！");
+                                        layer.alert("操作失败！",{icon: 2});
                                         console.log("btn-" + account.toString());
                                     }
                                 } else {
-                                    alert("操作失败，请联系管理员!");
+                                    layer.alert("操作失败，请联系管理员!",{icon: 2});
                                 }
                             };
                             xhr.send(formData);
@@ -77,16 +84,19 @@
                                     var res = JSON.parse(xhr.response);
                                     console.log(res);
                                     if (res.ok) {
-                                        alert("已取消关注");
+                                        layer.msg('已取消关注', {icon: 6});
+                                        window.setTimeout(function () {
+                                            window.location.reload();
+                                        },1000);//毫秒
                                         var btn = document.getElementById("btn-" + account);
                                         btn.setAttribute("class", "post__actions-btn post__actions-btn--blue");
                                         btn.innerHTML = '<span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">关注</span></span></span>';
                                         btn.setAttribute("onclick", "followit(this.id)");
                                     } else {
-                                        alert("操作失败");
+                                        layer.alert("操作失败！",{icon: 2});
                                     }
                                 } else {
-                                    alert("操作失败，请联系管理员!");
+                                    layer.alert("操作失败，请联系管理员!",{icon: 2});
                                 }
                             };
                             xhr.send(formData);

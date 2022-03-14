@@ -2,6 +2,10 @@
 <head th:replace="cssloader::cssloader('兴趣部落')"></head>
 <body>
 <!-- header -->
+<link type="text/css" href="../static/layui/css/layui.css"/>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+
 <header th:replace="component/header::header(${user})"></header>
 <!-- end header -->
 
@@ -34,12 +38,12 @@
 							xhr.open("POST","/user/like");
 							xhr.onload=function (ev) {
 								if(xhr.status===200){
-									alert("关注成功！");
+									layer.alert("关注成功！",{icon: 6});
 									var btn=document.getElementById("btn-"+hobbyid);
 									btn.setAttribute("class","post__actions-btn post__actions-btn--red");
 									btn.setAttribute("onclick","unlikeit("+hobbyid+")");
 								}else{
-									alert("操作失败，请联系管理员!");
+									layer.alert("操作失败，请联系管理员!",{icon: 2});
 								}
 							};
 							xhr.send(formData);
@@ -53,12 +57,13 @@
 							xhr.open("POST","/user/unlike");
 							xhr.onload=function (ev) {
 								if(xhr.status===200){
-									alert("已取消关注");
+									layer.alert("已取消关注",{icon: 1});
 									var btn=document.getElementById("btn-"+hobbyid);
 									btn.setAttribute("class","post__actions-btn post__actions-btn--green");
 									btn.setAttribute("onclick","likeit("+hobbyid+")");
 								}else{
-									alert("操作失败，请联系管理员!");
+									layer.alert("操作失败，请联系管理员!",{icon: 2});
+
 								}
 							};
 							xhr.send(formData);
@@ -107,7 +112,8 @@
 									var hname=document.getElementById("hname").value;
 									var htype=document.getElementById("htype").value;
 									if(hname=='' || htype==''){
-										alert("请您输入完整的信息");
+										layer.confirm("请您输入完整的信息！", {title:'提示信息',icon: 0})
+										// layer.alert("请您输入完整的信息");
 									}else{
 										var formData=new FormData();
 										formData.append("htype",htype);
@@ -116,9 +122,9 @@
 										xhr.open("POST","/hobby/addhobby");
 										xhr.onload=function (ev) {
 											if(xhr.status===200){
-												alert("添加成功");
+												layer.alert("添加成功",{icon: 6});
 											}else{
-												alert("操作失败，请联系管理员!");
+												layer.alert("操作失败，请联系管理员!",{icon: 2});
 											}
 										};
 										xhr.send(formData);

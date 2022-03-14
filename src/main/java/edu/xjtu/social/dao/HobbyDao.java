@@ -25,7 +25,7 @@ public interface HobbyDao extends Neo4jRepository<Hobby,Long> {
     @Query("match (hobby:Hobby) where ID(hobby)={id} set hobby.hname={hname},hobby.htype={htype} return hobby")
     Hobby fixHobby(@Param("id") Long id,@Param("hname") String hname,@Param("htype") String htype);
 
-    @Query("match (hobby:Hobby) where hobby.hname=~{hname} return hobby")
+    @Query("match (hobby:Hobby) where hobby.hname=~('.*'+{hname}+'.*') return hobby")
     List<Hobby> searchHobbyByName(@Param("hname") String hname);
 
     @Query("match (user:User) where user.account={account}\n" +

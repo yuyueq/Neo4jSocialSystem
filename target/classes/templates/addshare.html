@@ -1,13 +1,19 @@
 <html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" class="translated-ltr"
       xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
-<head th:replace="cssloader::cssloader(${title})"></head>
+<head th:replace="cssloader::cssloader(${title})">
+</head>
 
 <body>
 <script type="text/javascript" src="/js/axios.min.js"></script>
 <script type="text/javascript" src="/js/vue.min.js"></script>
 <script type="text/javascript" src="/js/vue-resource.min.js"></script>
+<link type="text/css" href="../static/layui/css/layui.css"/>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/layui/layui.all.js"></script>
 <!-- header -->
-<header th:replace="component/header::header(${user})"></header>
+<header th:replace="component/header::header(${user})">
+
+</header>
 <!-- end header -->
 <!-- main content -->
 <main class="main main--breadcrumb">
@@ -124,112 +130,113 @@
     </div>
 
     <script th:inline="javascript">
-        new Vue({
-            el: '#app',
-            data: {
-                keyword: '',
-                hobbies: [],
-                related_hobby: '',
-                // 右侧
-                title: '',
-                content: '',
-                address: '',
-                imgurl: '',
-                hobbyid: '',
-                account: [[${user.account}]],
-                publisherimg: [[${user.imgurl}]],
-                publisher: [[${user.nickname}]]
-            },
-            methods: {
-                uploadImg: function (event) {
-                    var param = new FormData();
-                    var fileInput = document.getElementById("filepath");
-                    var filepath = fileInput.files[0];
-                    if (filepath == null) {
-                        alert("请您先选择图片");
-                    } else {
-                        param.append("file", filepath);
-                        this.$http.post('/upload', param, {emulateJSON: true}).then(function (res) {
-                            if (res.status === 200) {
-                                alert("上传成功");
-                                this.imgurl = "/upload/" + res.data.data;
-                                document.getElementById("upload_img").setAttribute("src", this.imgurl);
-                            } else {
-                                alert(res.status);
-                            }
-                        }, function (res) {
-                            console.log(res.status);
-                        });
-                    }
+            new Vue({
+                el: '#app',
+                data: {
+                    keyword: '',
+                    hobbies: [],
+                    related_hobby: '',
+                    // 右侧
+                    title: '',
+                    content: '',
+                    address: '',
+                    imgurl: '',
+                    hobbyid: '',
+                    account: [[${user.account}]],
+                    publisherimg: [[${user.imgurl}]],
+                    publisher: [[${user.nickname}]]
                 },
-                searchHobby: function (event) {
-                    this.$http.get('/hobby/search', {params: {hname: this.keyword}}).then(function (res) {
-                        if (res.status === 200) {
-                            console.log(res);
-                            var hobbies = res.data.data;
-                            for (var i = 0; i < hobbies.length; i++) {
-                                hobbies[i]["selected"] = false;
-                            }
-                            this.hobbies = hobbies;
-                        }
-                    }, function (res) {
-                        console.log(res.status);
-                    });
-                },
-                select: function (hobbyid) {
-                    for (var i = 0; i < this.hobbies.length; i++) {
-                        if (this.hobbies[i].id === hobbyid) {
-                            this.hobbies[i].selected = true;
-                            this.related_hobby = this.hobbies[i].hname;
-                            this.hobbyid = hobbyid;
+                methods: {
+                    uploadImg: function (event) {
+                        var param = new FormData();
+                        var fileInput = document.getElementById("filepath");
+                        var filepath = fileInput.files[0];
+                        if (filepath == null) {
+                            layer.confirm("请您先选择图片！", {title:'提示信息',icon: 1})
                         } else {
-                            this.hobbies[i].selected = false;
+                            param.append("file", filepath);
+                            this.$http.post('/upload', param, {emulateJSON: true}).then(function (res) {
+                                if (res.status === 200) {
+                                    layer.alert("上传成功",{icon: 6});
+                                    this.imgurl = "/upload/" + res.data.data;
+                                    document.getElementById("upload_img").setAttribute("src", this.imgurl);
+                                } else {
+                                    layer.alert(res.status,{icon: 2});
+                                }
+                            }, function (res) {
+                                console.log(res.status);
+                            });
                         }
-                    }
-                },
-                publishShare: function (event) {
-                    console.log(this.hobbyid);
-                    console.log(this.related_hobby);
-                    console.log(this.title);
-                    console.log(this.content);
-                    console.log(this.address);
-                    console.log(this.imgurl);
-                    console.log(this.account);
-                    console.log(this.publisher);
-                    console.log(this.publisherimg);
-
-                    if (this.hobbyid == '' || this.related_hobby == '' || this.title == '' || this.content == '' ||
-                        this.address === '' || this.imgurl === '' || this.account === '' || this.publisher == '' || this.publisherimg == '') {
-                        alert("请你填写完整的信息");
-                    } else {
-                        this.$http.post('/share/add', {
-                            hobbyid: this.hobbyid,
-                            related_hobby: this.related_hobby,
-
-                            title: this.title,
-                            content: this.content,
-                            address: this.address,
-                            imgurl: this.imgurl,
-
-                            account: this.account,
-                            publisherimg: this.publisherimg,
-                            publisher: this.publisher
-                        }, {emulateJSON: true}).then(function (res) {
+                    },
+                    searchHobby: function (event) {
+                        this.$http.get('/hobby/search', {params: {hname: this.keyword}}).then(function (res) {
                             if (res.status === 200) {
-                                alert("添加成功");
-                            } else {
-                                alert(res.status);
+                                console.log(res);
+                                var hobbies = res.data.data;
+                                for (var i = 0; i < hobbies.length; i++) {
+                                    hobbies[i]["selected"] = false;
+                                }
+                                this.hobbies = hobbies;
                             }
                         }, function (res) {
                             console.log(res.status);
                         });
+                    },
+                    select: function (hobbyid) {
+                        for (var i = 0; i < this.hobbies.length; i++) {
+                            if (this.hobbies[i].id === hobbyid) {
+                                this.hobbies[i].selected = true;
+                                this.related_hobby = this.hobbies[i].hname;
+                                this.hobbyid = hobbyid;
+                            } else {
+                                this.hobbies[i].selected = false;
+                            }
+                        }
+                    },
+                    publishShare: function (event) {
+                        console.log(this.hobbyid);
+                        console.log(this.related_hobby);
+                        console.log(this.title);
+                        console.log(this.content);
+                        console.log(this.address);
+                        console.log(this.imgurl);
+                        console.log(this.account);
+                        console.log(this.publisher);
+                        console.log(this.publisherimg);
+
+                        if (this.hobbyid == '' || this.related_hobby == '' || this.title == '' || this.content == '' ||
+                            this.address === '' || this.imgurl === '' || this.account === '' || this.publisher == '' || this.publisherimg == '') {
+                            layer.confirm("请您输入完整的信息！", {title:'提示信息',icon: 0})
+                        } else {
+                            this.$http.post('/share/add', {
+                                hobbyid: this.hobbyid,
+                                related_hobby: this.related_hobby,
+
+                                title: this.title,
+                                content: this.content,
+                                address: this.address,
+                                imgurl: this.imgurl,
+
+                                account: this.account,
+                                publisherimg: this.publisherimg,
+                                publisher: this.publisher
+                            }, {emulateJSON: true}, true).then(function (res) {
+                                layer.msg('发布动态成功', {icon: 6});
+                                window.setTimeout(function () {
+                                    window.location.reload();
+                                },3000);//毫秒
+                            }, function (res) {
+                                console.log(res.status);
+                            });
+                        }
                     }
                 }
-            }
         })
+
     </script>
 </main>
 <!-- end main content -->
+
 </body>
 <div th:replace="jsloader::jsloader"></div>
 </html>
