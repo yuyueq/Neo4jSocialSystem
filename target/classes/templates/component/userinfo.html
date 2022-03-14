@@ -1,0 +1,68 @@
+<div class="col-12 col-md-5 col-lg-4 col-xl-3" th:fragment="userinfo(user)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <!-- user -->
+    <div class="user">
+        <div class="user__head" style="background-color: rgb(55, 145, 229)">
+            <div class="user__img">
+                <img th:if="${user.imgurl} != null" th:src="${user.imgurl}" alt="用户头像">
+            </div>
+        </div>
+        <div class="user__title">
+            <h2><span style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">[[${user.nickname}]]</span></span></h2>
+            <p><span
+                    style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">[[${user.email}]]</span></span></p>
+            <div class="profile__actions">
+                <div class="post__location" >
+                    <i class="icon ion-ios-navigate" style="color: #1ecd4a"></i>
+                    <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">[[${user.address}]]</span></span></span>
+                </div>
+            </div>
+        </div>
+        <ul class="user__list">
+            <li><span><span style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">账号：</span></span></span> <span><span
+                    style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">[[${user.account}]]</span></span></span></li>
+            <li><span><span style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">年龄：</span></span></span> <span><span
+                    style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">[[${user.age}]]</span></span></span></li>
+            <li><span><span style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">性别：</span></span></span> <span><span
+                    style="vertical-align: inherit;"><span
+                    style="vertical-align: inherit;">[[${user.gender}]]</span></span></span></li>
+        </ul>
+        <ul class="user__stats">
+            <li>
+                <p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">我的关注</span></span></p>
+                <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">
+                    <a th:if="${myfollowing}>0" href="/user/myfollowing">[[${myfollowing}]]</a>
+                    <a th:if="${myfollowing}==0" onclick="alert('您还没有关注任何人呢～')">[[${myfollowing}]]</a>
+                </span></span></span>
+            </li>
+            <li>
+                <p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">关注者</span></span></p>
+                <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">
+                    <a th:if="${follower}>0" href="/user/follower">[[${follower}]]</a>
+                    <a th:if="${follower}==0" onclick="alert('还没有人关注你呢～')">[[${follower}]]</a>
+                </span></span></span>
+            </li>
+        </ul>
+    </div>
+    <!-- end user -->
+
+    <!-- social -->
+<!--    <div class="sidebox">-->
+<!--        <div class="sidebox__share">-->
+<!--            <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">社交：</span></span></span>-->
+<!--            <ul>-->
+<!--                <li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>-->
+<!--                <li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>-->
+<!--                <li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>-->
+<!--                <li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+    <!-- end social -->
+</div>
