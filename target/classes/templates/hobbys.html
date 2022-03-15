@@ -122,7 +122,10 @@
 										xhr.open("POST","/hobby/addhobby");
 										xhr.onload=function (ev) {
 											if(xhr.status===200){
-												layer.alert("添加成功",{icon: 6});
+												layer.msg('添加成功', {icon: 6});
+												window.setTimeout(function () {
+													window.location.reload();
+												},1000);//毫秒
 											}else{
 												layer.alert("操作失败，请联系管理员!",{icon: 2});
 											}

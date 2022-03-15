@@ -10,6 +10,7 @@
 <link type="text/css" href="../static/layui/css/layui.css"/>
 <script type="text/javascript" src="/layui/layui.js"></script>
 <script type="text/javascript" src="/layui/layui.all.js"></script>
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
 <!-- header -->
 <header th:replace="component/header::header(${user})">
 
@@ -50,10 +51,10 @@
                         </button>
                     </div>
                     <div class="sidebox__nav">点击设置相关兴趣（话题）</div>
-                    <ul class="post__tags sidebox__nav">
+                    <ul class="post__tags sidebox__nav" id="hobbyName">
                         <a v-for="hobby in hobbies" v-on:click="select(hobby.id)"
                            v-bind:class="{'selected':hobby.selected}">
-                            <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">{{hobby.hname}}</span></span>
+                            <span style="vertical-align: inherit;"><span style="vertical-align: inherit;" >{{hobby.hname}}</span></span>
                         </a>
                     </ul>
                 </div>
@@ -175,6 +176,9 @@
                                 var hobbies = res.data.data;
                                 for (var i = 0; i < hobbies.length; i++) {
                                     hobbies[i]["selected"] = false;
+                                    if (i === 3){
+                                        document.getElementById('hobbyName').append();
+                                    }
                                 }
                                 this.hobbies = hobbies;
                             }

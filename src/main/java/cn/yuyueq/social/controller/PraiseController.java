@@ -1,0 +1,47 @@
+package cn.yuyueq.social.controller;
+
+import cn.yuyueq.social.dao.PraiseDao;
+import cn.yuyueq.social.domain.util.ResponseInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * <p>
+ * 前端控制器
+ * </p>
+ *
+ * @author yuyueq
+ * @since 2022-01-23
+ */
+
+@Controller
+public class PraiseController {
+    @Autowired
+    PraiseDao praiseDao;
+
+    @PostMapping("/praised/zan")
+    @ResponseBody
+    public ResponseInfo praiseShare(
+            @RequestParam("account") String account,@RequestParam("shareid") Integer shareid) {
+        Integer number=praiseDao.isPraised(shareid,account);
+        if(number>0) {
+            Long praise_number=praiseDao.getPraisedNumber(shareid);
+            return new ResponseInfo("check", true, praise_number);
+        }
+        Long relationshipId=praiseDao.praisedIt(account,shareid);
+        Long praise_number=praiseDao.getPraisedNumber(shareid);
+        return new ResponseInfo(relationshipId!=null?"success":"fail",relationshipId!=null,praise_number);
+    }
+
+    @PostMapping("/praised/unzan")
+    @ResponseBody
+    public ResponseInfo unPraiseShare(
+            @RequestParam("account") String account,@RequestParam("shareid") Integer shareid) {
+        Integer affect_rowes=praiseDao.canclepraised(account,shareid);
+        Long praise_number=praiseDao.getPraisedNumber(shareid);
+        return new ResponseInfo(affect_rowes>0?"success":"fail",affect_rowes>0,praise_number);
+    }
+}
