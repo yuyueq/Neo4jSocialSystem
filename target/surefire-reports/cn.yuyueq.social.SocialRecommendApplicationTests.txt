@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cn.yuyueq.social.SocialRecommendApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.831 s - in cn.yuyueq.social.SocialRecommendApplicationTests

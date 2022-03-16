@@ -1,7 +1,7 @@
 package cn.yuyueq.social.controller;
 
 import cn.yuyueq.social.domain.util.ResponseInfo;
-import cn.yuyueq.social.service.FileService;
+import cn.yuyueq.social.service.impl.FileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,20 +14,20 @@ import org.springframework.web.multipart.MultipartFile;
  * 前端控制器
  * </p>
  *
- * @author yuyueq
+ * @author wenxin.du
  * @since 2022-01-23
  */
 
 @Controller
 public class FileController {
     @Autowired
-    FileService fileService;
+    FileServiceImpl fileServiceImpl;
 
     @PostMapping("/upload")
     @ResponseBody
     public ResponseInfo upload(@RequestParam("file") MultipartFile file){
         try{
-            return new ResponseInfo("上传成功",true,fileService.storeFile(file));
+            return new ResponseInfo("上传成功",true, fileServiceImpl.storeFile(file));
         }catch (Exception e){
             e.printStackTrace();
         }

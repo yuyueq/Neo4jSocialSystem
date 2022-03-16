@@ -1,18 +1,15 @@
 package cn.yuyueq.social.controller;
 
-import cn.yuyueq.social.dao.FollowDao;
-import cn.yuyueq.social.dao.HobbyDao;
-import cn.yuyueq.social.dao.LikeDao;
-import cn.yuyueq.social.domain.node.User;
 import cn.yuyueq.social.domain.util.ResponseInfo;
-import cn.yuyueq.social.domain.node.Hobby;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.yuyueq.social.service.HobbyService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -20,81 +17,77 @@ import java.util.Map;
  * 前端控制器
  * </p>
  *
- * @author yuyueq
+ * @author wenxin.du
  * @since 2022-01-23
  */
 
 @Controller
 public class HobbyController {
-    public static boolean contains(ArrayList<Hobby> hobbies,Hobby target){
-        for (Hobby hobby : hobbies) {
-            if (hobby.getId().equals(target.getId()))
-                return true;
-        }
-        return false;
-    }
-    @Autowired
-    HobbyDao hobbyDao;
-    @Autowired
-    LikeDao likeDao;
-    @Autowired
-    FollowDao followDao;
 
+    @Resource
+    private HobbyService hobbyService;
+
+    /**
+     * 获取兴趣部落
+     *
+     * @param request
+     * @param map
+     * @return
+     */
     @GetMapping("/hobby/getall")
-    public String getAll(HttpServletRequest request, Map<String,Object> map){
-        HttpSession session=request.getSession();
-        User user=(User) session.getAttribute("user");
-        if(user==null) return "login";
-        ArrayList<Hobby> hobbies=(ArrayList<Hobby>) hobbyDao.getAllHobbies();
-        ArrayList<Hobby> myhobbies=(ArrayList<Hobby>) hobbyDao.getMyHobby(user.getAccount());
-        ArrayList<Hobby> res=new ArrayList<>();
-        for (Hobby hobby : hobbies) {
-            if (contains(myhobbies, hobby)) continue;
-            res.add(hobby);
-        }
-        Integer following_num=followDao.getMyFollowing(user.getAccount()).size();
-        Integer follower_num=followDao.getPeopleWhoFollowMe(user.getAccount()).size();
-        map.put("myfollowing",following_num);
-        map.put("follower",follower_num);
-        map.put("hobbies",res);
-        map.put("myhobbies",myhobbies);
-        map.put("user",user);
-        return "hobbys";
+    public String getAll(HttpServletRequest request, Map<String, Object> map) {
+        return hobbyService.getAll(request, map);
     }
 
+    /**
+     * 添加兴趣
+     *
+     * @param hname
+     * @param htype
+     * @return
+     */
     @PostMapping("/hobby/addhobby")
     @ResponseBody
-    public ResponseInfo addHobby(@RequestParam("hname") String hname,
-                                 @RequestParam("htype") String htype){
-        Hobby hobby=hobbyDao.addHobby(hname,htype);
-        if(hobby==null){
-            return new ResponseInfo("fail",false,null);
-        }
-        return new ResponseInfo("sucess",true,hobby);
+    public ResponseInfo addHobby(@RequestParam("hname") String hname, @RequestParam("htype") String htype) {
+        return hobbyService.addHobby(hname, htype);
     }
 
+    /**
+     * 删除兴趣
+     *
+     * @param id
+     * @return
+     */
     @PostMapping("/hobby/delete")
     @ResponseBody
-    public ResponseInfo deleteHobby(@RequestParam("id") Long id){
-        Hobby hobby=hobbyDao.deleteWithId(id);
-        return new ResponseInfo("success",true,hobby);
+    public ResponseInfo deleteHobby(@RequestParam("id") Long id) {
+        return hobbyService.deleteHobby(id);
     }
 
+    /**
+     * 搜索兴趣
+     *
+     * @param hname
+     * @return
+     */
     @GetMapping("/hobby/search")
     @ResponseBody
-    public ResponseInfo search(@RequestParam("hname") String hname){
-        ArrayList<Hobby> hobbies=(ArrayList<Hobby>) hobbyDao.searchHobbyByName(".*"+hname+".*");
-        return new ResponseInfo("",true,hobbies);
+    public ResponseInfo search(@RequestParam("hname") String hname) {
+        return hobbyService.search(hname);
     }
 
+    /**
+     * 修改兴趣
+     *
+     * @param id
+     * @param hname
+     * @param htype
+     * @return
+     */
     @PostMapping("/hobby/fix")
     @ResponseBody
     public ResponseInfo fix(@RequestParam("id") Long id, @RequestParam("hname") String hname,
-                            @RequestParam("htype") String htype){
-        Hobby hobby=hobbyDao.fixHobby(id,hname,htype);
-        if(hobby!=null){
-            return new ResponseInfo("修改成功",true,hobby);
-        }
-        return new ResponseInfo("修改失败",false,null);
+                            @RequestParam("htype") String htype) {
+        return hobbyService.fix(id, hname, htype);
     }
 }
