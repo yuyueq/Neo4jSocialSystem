@@ -27,7 +27,7 @@
             <div class="col-12 col-md-5 col-lg-4 col-xl-3">
                 <!-- sidebox -->
                 <div class="sidebox sidebox--desk">
-                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><i class="icon ion-person-add"><span style="vertical-align: inherit;"> 可能认识</span></i></span></h4>
+                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><i class="icon ion-ios-person-add"><span style="vertical-align: inherit;"> 可能认识</span></i></span></h4>
                     <div class="sidebox__content" th:if="${byfriend.size}>0">
                         <div class="sidebox__user" th:each="item:${byfriend}">
                             <a href="#" class="sidebox__user-img">
@@ -49,8 +49,8 @@
 
                 <!-- sidebox -->
                 <div class="sidebox sidebox--desk">
-                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><span
-                            style="vertical-align: inherit;">最常互动</span></span></h4>
+                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><i class="icon ion-ios-chatbubbles"><span
+                            style="vertical-align: inherit;">最常互动</span></i></span></h4>
                     <div class="sidebox__content">
                         <div class="sidebox__content" th:if="${byshare.size}>0">
                             <div class="sidebox__user" th:each="item:${byshare}">
@@ -74,7 +74,7 @@
 
                 <!-- sidebox -->
                 <div class="sidebox sidebox--desk">
-                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><i class="icon ion-person-stalker"><span
+                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><i class="icon ion-ios-star"><span
                             style="vertical-align: inherit;"> 相同兴趣</span></i></span></h4>
                     <div class="sidebox__content" th:if="${byhobby.size}>0">
                         <div class="sidebox__user" th:each="item:${byhobby}">

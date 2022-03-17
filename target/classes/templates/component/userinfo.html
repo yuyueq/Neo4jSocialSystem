@@ -13,11 +13,10 @@
         </div>
         <div class="user__title">
             <h2><span style="vertical-align: inherit;"><i class="icon ion-ios-person"><span style="vertical-align: inherit;">[[${user.nickname}]]</span></i></span></h2>
-            <p><span style="vertical-align: inherit;"><i class="icon ion-ios-email"></i><span style="vertical-align: inherit;">[[${user.email}]]</span></span></p>
+            <p><span style="vertical-align: inherit;"><i class="icon ion-ios-mail"></i><span style="vertical-align: inherit;">[[${user.email}]]</span></span></p>
             <div class="profile__actions">
                 <div class="post__location" >
-<!--                    <i class="icon ion-ios-navigate" ></i>-->
-                    <i class="icon ion-android-pin" style="color: #1ecd4a"></i>
+                    <i class="icon ion-ios-navigate" style="color: #1ecd4a"></i>
                     <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">[[${user.address}]]</span></span></span>
                 </div>
             </div>
@@ -38,7 +37,7 @@
         </ul>
         <ul class="user__stats">
             <li>
-                <i class="icon ion-android-people"></i>
+                <i class="icon ion-ios-people"></i>
                 <p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">关注的人</span></span></p>
                 <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">
                     <a th:if="${myfollowing}>0" href="/user/myfollowing">[[${myfollowing}]]</a>
@@ -46,7 +45,7 @@
                 </span></span></span>
             </li>
             <li>
-                <i class="icon ion-android-people"></i>
+                <i class="icon ion-ios-people"></i>
                 <p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">关注我的</span></span></p>
                 <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">
                     <a th:if="${follower}>0" href="/user/follower">[[${follower}]]</a>
@@ -60,10 +59,11 @@
     <!-- social -->
     <div class="sidebox">
         <div class="sidebox__share">
-            <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">联系：</span></span></span>
+            <span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">NetWork：</span></span></span>
             <ul>
                 <li class="fa-wechat"><a href="https://wx.qq.com/"><i class="icon ion-ios-aperture"></i></a></li>
-                <li class="email"><a href="https://mail.qq.com//"><i class="icon ion-ios-email"></i></a></li>
+                <li class="email"><a href="https://mail.qq.com/"><i class="icon ion-ios-mail"></i></a></li>
+                <li class="fa-music"><a href="https://music.163.com/"><i class="icon ion-ios-musical-note"></i></a></li>
             </ul>
         </div>
     </div>

@@ -38,69 +38,74 @@
 
                     <script type="text/javascript" th:inline="javascript">
                         function followit(account) {
-                            account = account.split("-")[1];
-                            console.log(account);
-                            var formData = new FormData();
-                            formData.append("follower", [[${user.account}]])
-                            formData.append("following", account);
-                            var xhr = new XMLHttpRequest();
-                            xhr.open("POST", "/follow/followit");
-                            xhr.onload = function (ev) {
-                                if (xhr.status === 200) {
-                                    console.log(xhr);
-                                    var responsetext = JSON.parse(xhr.response);
-                                    console.log(responsetext);
-                                    if (responsetext.ok) {
-                                        layer.msg('已成功关注', {icon: 6});
-                                        window.setTimeout(function () {
-                                            window.location.reload();
-                                        },1000);//毫秒
-                                        var btn = document.getElementById("btn-" + account);
-                                        btn.setAttribute("class", "post__actions-btn post__actions-btn--blue");
-                                        btn.innerHTML = '<span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">取关</span></span></span>';
-                                        btn.setAttribute("onclick", "unfollowit(this.id)");
+                            layer.confirm('确认关注TA？', {icon: 6},function (){
+                                account = account.split("-")[1];
+                                console.log(account);
+                                var formData = new FormData();
+                                formData.append("follower", [[${user.account}]])
+                                formData.append("following", account);
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "/follow/followit");
+                                xhr.onload = function (ev) {
+                                    if (xhr.status === 200) {
+                                        console.log(xhr);
+                                        var responsetext = JSON.parse(xhr.response);
+                                        console.log(responsetext);
+                                        if (responsetext.ok) {
+
+                                            window.setTimeout(function () {
+                                                window.location.reload();
+                                            },1000);//毫秒
+                                            var btn = document.getElementById("btn-" + account);
+                                            btn.setAttribute("class", "post__actions-btn post__actions-btn--blue");
+                                            btn.innerHTML = '<span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">取关</span></span></span>';
+                                            btn.setAttribute("onclick", "unfollowit(this.id)");
+                                        } else {
+                                            layer.alert("操作失败！",{icon: 2});
+                                            console.log("btn-" + account.toString());
+                                        }
                                     } else {
-                                        layer.alert("操作失败！",{icon: 2});
-                                        console.log("btn-" + account.toString());
+                                        layer.alert("操作失败，请联系管理员!",{icon: 2});
                                     }
-                                } else {
-                                    layer.alert("操作失败，请联系管理员!",{icon: 2});
-                                }
-                            };
-                            xhr.send(formData);
+                                };
+                                xhr.send(formData);
+                            })
                         }
 
                         function unfollowit(account) {
-                            account = account.split("-")[1];
-                            console.log(account);
-                            var formData = new FormData();
-                            formData.append("follower", [[${user.account}]]);
-                            formData.append("following", account);
-                            console.log(formData);
-                            var xhr = new XMLHttpRequest();
-                            xhr.open("POST", "/follow/unfollow");
-                            xhr.onload = function (ev) {
-                                if (xhr.status === 200) {
-                                    var res = JSON.parse(xhr.response);
-                                    console.log(res);
-                                    if (res.ok) {
-                                        layer.msg('已取消关注', {icon: 6});
-                                        window.setTimeout(function () {
-                                            window.location.reload();
-                                        },1000);//毫秒
-                                        var btn = document.getElementById("btn-" + account);
-                                        btn.setAttribute("class", "post__actions-btn post__actions-btn--blue");
-                                        btn.innerHTML = '<span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">关注</span></span></span>';
-                                        btn.setAttribute("onclick", "followit(this.id)");
+                            layer.confirm('确认取消关注？', {icon: 0},function () {
+                                account = account.split("-")[1];
+                                console.log(account);
+                                var formData = new FormData();
+                                formData.append("follower", [[${user.account}]]);
+                                formData.append("following", account);
+                                console.log(formData);
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "/follow/unfollow");
+                                xhr.onload = function (ev) {
+                                    if (xhr.status === 200) {
+                                        var res = JSON.parse(xhr.response);
+                                        console.log(res);
+                                        if (res.ok) {
+                                            layer.msg('已取消关注', {icon: 6});
+                                            window.setTimeout(function () {
+                                                window.location.reload();
+                                            }, 1000);//毫秒
+                                            var btn = document.getElementById("btn-" + account);
+                                            btn.setAttribute("class", "post__actions-btn post__actions-btn--blue");
+                                            btn.innerHTML = '<span><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">关注</span></span></span>';
+                                            btn.setAttribute("onclick", "followit(this.id)");
+                                        } else {
+                                            layer.alert("操作失败！", {icon: 2});
+                                        }
                                     } else {
-                                        layer.alert("操作失败！",{icon: 2});
+                                        layer.alert("操作失败，请联系管理员!", {icon: 2});
                                     }
-                                } else {
-                                    layer.alert("操作失败，请联系管理员!",{icon: 2});
-                                }
-                            };
-                            xhr.send(formData);
+                                };
+                                xhr.send(formData);
+                            })
                         }
+
                     </script>
                 </div>
             </div>

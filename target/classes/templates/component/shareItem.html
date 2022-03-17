@@ -53,18 +53,18 @@
             <img th:src="${item.publisherimg}" alt="">
         </a>
         <div class="post__head-title">
-            <i class="icon ion-ios-body"></i>
+
             <h5><a href="#"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">[[${item.publisher}]]</span></span></a></h5>
-            <p><font style="vertical-align: inherit;"><i class="icon ion-ios-time"><span style="vertical-align: inherit;">[[${item.time}]]</span></i></font></p>
+            <p><span style="vertical-align: inherit;"><i class="icon ion-ios-time"><span style="vertical-align: inherit;">[[${item.time}]]</span></i></span></p>
         </div>
-<!--        <div class="post__dropdown">-->
-<!--            <a class="dropdown-toggle post__dropdown-btn" href="#" role="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                <i class="icon ion-md-more"></i>-->
-<!--            </a>-->
-<!--            <ul class="dropdown-menu dropdown-menu-right post__dropdown-menu" aria-labelledby="dropdownMenu1">-->
-<!--                <li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">取消关注</font></font></a></li>-->
-<!--            </ul>-->
-<!--        </div>-->
+        <div class="post__dropdown">
+            <a class="dropdown-toggle post__dropdown-btn" href="#" role="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="icon ion-md-more"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right post__dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="/user/myfollowing"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">取消关注</span></span></a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="post__wrap">

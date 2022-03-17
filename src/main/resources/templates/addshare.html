@@ -38,28 +38,6 @@
 
     <div class="container">
         <div class="row" id="app">
-            <div class="col-12 col-md-5 col-lg-4 col-xl-3">
-                <!-- nav -->
-                <div class="sidebox">
-                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><span
-                            style="vertical-align: inherit;">设置相关兴趣</span></span></h4>
-
-                    <div class="sidebox__search">
-                        <input type="text" class="filter__input" placeholder="搜索相关兴趣" v-model="keyword">
-                        <button type="button" v-on:click="searchHobby">
-                            <i class="icon ion-ios-search"></i>
-                        </button>
-                    </div>
-                    <div class="sidebox__nav">点击设置相关兴趣（话题）</div>
-                    <ul class="post__tags sidebox__nav" id="hobbyName">
-                        <a v-for="hobby in hobbies" v-on:click="select(hobby.id)"
-                           v-bind:class="{'selected':hobby.selected}">
-                            <span style="vertical-align: inherit;"><span style="vertical-align: inherit;" >{{hobby.hname}}</span></span>
-                        </a>
-                    </ul>
-                </div>
-                <!-- end nav -->
-            </div>
 
             <div class="col-12 col-md-7 col-lg-8 col-xl-9">
                 <form class="form">
@@ -126,6 +104,30 @@
                 </form>
                 <!-- end form -->
             </div>
+
+            <div class="col-12 col-md-5 col-lg-4 col-xl-3">
+                <!-- nav -->
+                <div class="sidebox">
+                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><span
+                            style="vertical-align: inherit;">设置相关兴趣</span></span></h4>
+
+                    <div class="sidebox__search">
+                        <input type="text" class="filter__input" placeholder="搜索相关兴趣" v-model="keyword">
+                        <button type="button" v-on:click="searchHobby">
+                            <i class="icon ion-ios-search"></i>
+                        </button>
+                    </div>
+                    <div class="sidebox__nav">点击设置相关兴趣（话题）</div>
+                    <ul class="post__tags sidebox__nav" id="hobbyName">
+                        <a v-for="hobby in hobbies" v-on:click="select(hobby.id)"
+                           v-bind:class="{'selected':hobby.selected}">
+                            <span style="vertical-align: inherit;"><span style="vertical-align: inherit;" >{{hobby.hname}}</span></span>
+                        </a>
+                    </ul>
+                </div>
+                <!-- end nav -->
+            </div>
+
 
         </div>
     </div>
