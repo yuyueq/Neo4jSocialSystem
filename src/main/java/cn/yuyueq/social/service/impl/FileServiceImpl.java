@@ -1,6 +1,7 @@
 package cn.yuyueq.social.service.impl;
 
 import cn.yuyueq.social.configuration.FileConfiguration;
+import cn.yuyueq.social.domain.util.ResponseInfo;
 import cn.yuyueq.social.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -37,6 +38,16 @@ public class FileServiceImpl implements FileService {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ResponseInfo upload(MultipartFile file) {
+        try{
+            return new ResponseInfo("上传成功",true, this.storeFile(file));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseInfo("上传失败",false,null);
     }
 
     /**

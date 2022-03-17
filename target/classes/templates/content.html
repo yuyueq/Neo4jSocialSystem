@@ -6,7 +6,8 @@
 <!-- end header -->
 
 <!-- main content -->
-<main class="main">
+<main class="main" >
+<!--    style="background-color: #fec23b"-->
     <div class="container" style="max-width:1400px;">
         <div class="row">
             <div th:replace="component/userinfo::userinfo(${user})"></div>
@@ -14,8 +15,8 @@
             <div class="col-12 col-md-7 col-lg-8 col-xl-6">
                 <ul class="nav nav-tabs main__nav" id="main__nav" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active"><span style="vertical-align: inherit;"><span
-                                style="vertical-align: inherit;">好友动态</span></span></a>
+                        <a class="nav-link active"><span style="vertical-align: inherit;"><i class="icon ion-ios-people"><span
+                                style="vertical-align: inherit;"> 好友动态</span></i></span></a>
                     </li>
                 </ul>
                 <!-- post -->
@@ -26,8 +27,7 @@
             <div class="col-12 col-md-5 col-lg-4 col-xl-3">
                 <!-- sidebox -->
                 <div class="sidebox sidebox--desk">
-                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><span
-                            style="vertical-align: inherit;">可能认识</span></span></h4>
+                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><i class="icon ion-person-add"><span style="vertical-align: inherit;"> 可能认识</span></i></span></h4>
                     <div class="sidebox__content" th:if="${byfriend.size}>0">
                         <div class="sidebox__user" th:each="item:${byfriend}">
                             <a href="#" class="sidebox__user-img">
@@ -74,8 +74,8 @@
 
                 <!-- sidebox -->
                 <div class="sidebox sidebox--desk">
-                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><span
-                            style="vertical-align: inherit;">相同兴趣</span></span></h4>
+                    <h4 class="sidebox__title"><span style="vertical-align: inherit;"><i class="icon ion-person-stalker"><span
+                            style="vertical-align: inherit;"> 相同兴趣</span></i></span></h4>
                     <div class="sidebox__content" th:if="${byhobby.size}>0">
                         <div class="sidebox__user" th:each="item:${byhobby}">
                             <a href="#" class="sidebox__user-img">
