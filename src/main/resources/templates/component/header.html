@@ -1,5 +1,6 @@
 <!-- header -->
-<header class="header" th:fragment="header(user)" xmlns:th="http://www.w3.org/1999/xhtml" style="background-color: #104575">
+<header class="header" th:fragment="header(user)" xmlns:th="http://www.w3.org/1999/xhtml"
+        style="background-color: #104575" xmlns="http://www.w3.org/1999/html">
     <div class="container">
         <div class="row">
             <div class="col-7 col-md-9 col-lg-8 col-xl-9">
@@ -18,8 +19,7 @@
                     <ul class="header__nav" style="text-align: center">
                         <!-- dropdown -->
                         <li class="header__nav-item">
-                            <a href="/content" class="header__nav-link"><span
-                                    style="vertical-align: inherit;"><span style="vertical-align: inherit;">首页</span></span></a>
+                            <a href="/content" class="header__nav-link"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;"><i class="icon ion-ios-home"></i>首页</span></span></a>
                         </li>
                         <!-- end dropdown -->
 
@@ -27,7 +27,7 @@
                         <li class="header__nav-item">
                             <a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuProjects"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span style="vertical-align: inherit;">
-                                <span style="vertical-align: inherit;"></span>好友推荐</span>
+                                <span style="vertical-align: inherit;"></span><i class="icon ion-ios-person-add"></i>好友推荐</span>
                             </a>
                             <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuProjects">
                                 <li><a href="/recommend/user/byfriend"><span style="vertical-align: inherit;"><span
@@ -41,7 +41,7 @@
                         <!-- dropdown -->
                         <li class="header__nav-item">
                             <a href="/hobby/getall" class="header__nav-link"><span style="vertical-align: inherit;"><span
-                                    style="vertical-align: inherit;">兴趣部落</span></span></a>
+                                    style="vertical-align: inherit;"><i class="icon ion-ios-pricetags"></i>兴趣部落</span></span></a>
                         </li>
                         <!-- end dropdown -->
 
@@ -49,8 +49,7 @@
                         <li class="header__nav-item">
                             <a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCompanies"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span style="vertical-align: inherit;"><span
-                                        style="vertical-align: inherit;">发现动态</span></span>
+                                <span style="vertical-align: inherit;"><span style="vertical-align: inherit;"><i class="icon ion-ios-aperture"></i>发现动态</span></span>
                             </a>
 
                             <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCompanies">
