@@ -122,7 +122,7 @@ public class UserController {
     @PostMapping("/user/adduser")
     public String addUser(@RequestParam("account") String account,
                           @RequestParam("password") String password,
-                          @RequestParam("age") Integer age,
+                          @RequestParam("age") String age,
                           @RequestParam("gender") String gender,
                           @RequestParam("email") String email,
                           @RequestParam("address") String address,

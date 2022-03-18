@@ -1,5 +1,6 @@
 package cn.yuyueq.social.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import cn.yuyueq.social.dao.FollowDao;
 import cn.yuyueq.social.dao.RecommendDao;
 import cn.yuyueq.social.dao.ShareDao;
@@ -124,18 +125,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String addUser(String account, String password, Integer age, String gender, String email, String address, String nickname, Map<String, Object> map) {
-        User user = userDao.getUserByAccount(account);
-        if (user != null) {
-            map.put("msg", "该账号已经存在，请登录");
+    public String addUser(String account, String password, String age, String gender, String email, String address, String nickname, Map<String, Object> map) {
+
+        if (StrUtil.isNotBlank(account)){
+            User user = userDao.getUserByAccount(account);
+            if (user != null) {
+                map.put("msg", "该账号已经存在，请登录");
+                return "login";
+            }
+            user = userDao.adduser(account, password, nickname, age, gender, email, address);
+            if (user != null) {
+                return "redirect:/content";
+            }
+            map.put("msg", "注册失败，请联系管理员");
+            return "user/adduser";
+        }else{
+            map.put("msg", "填写的账号为空，请重新注册！！！");
             return "login";
         }
-        user = userDao.adduser(account, password, nickname, age, gender, email, address);
-        if (user != null) {
-            return "redirect:/content";
-        }
-        map.put("msg", "注册失败，请联系管理员");
-        return "register";
+
     }
 
     @Override

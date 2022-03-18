@@ -15,7 +15,7 @@ public interface UserDao extends Neo4jRepository<User,Long> {
             "email:{email},address:{address}}) RETURN user")
     // 添加用户
     User adduser(@Param("account") String account,@Param("password") String password,
-                 @Param("nickname") String nickname,@Param("age") Integer age,
+                 @Param("nickname") String nickname,@Param("age") String age,
                  @Param("gender") String gender,@Param("email") String email,
                  @Param("address") String address);
 

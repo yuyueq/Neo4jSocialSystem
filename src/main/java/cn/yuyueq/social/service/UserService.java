@@ -19,7 +19,7 @@ public interface UserService {
 
     ResponseInfo getAllUser();
 
-    String addUser(String account, String password, Integer age, String gender, String email, String address, String nickname, Map<String, Object> map);
+    String addUser(String account, String password, String age, String gender, String email, String address, String nickname, Map<String, Object> map);
 
     ResponseInfo deleteUser(String account);
 
