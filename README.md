@@ -4,7 +4,7 @@
 ---
 
 ## 2022.3.21   导出数据库文件
-[关于数据库的导入导出](database/README.md)
+[关于数据库的导入导出](./database/README.md)
 
 ---
 
