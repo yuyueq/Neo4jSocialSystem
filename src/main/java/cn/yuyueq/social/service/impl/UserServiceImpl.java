@@ -91,6 +91,8 @@ public class UserServiceImpl implements UserService {
         ArrayList<Share> shares = shareDao.getFriendShares(user.getAccount());
         // 读取推荐用户列表
         ArrayList<User> byfriend = (ArrayList<User>) recommendDao.byFriend(user.getAccount());
+        ArrayList<User> myFollowing = (ArrayList<User>) followDao.getMyFollowing(user.getAccount());
+        byfriend.removeAll(myFollowing);
         ArrayList<User> byshare = (ArrayList<User>) recommendDao.byshare(user.getAccount());
 
         HashSet<User> users = recommendUserService.SimilarInterests(user.getAccount());
@@ -133,7 +135,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String addUser(String account, String password, String age, String gender, String email, String address, String nickname, Map<String, Object> map) {
 
-        if (StrUtil.isNotBlank(account)){
+        if (StrUtil.isNotBlank(account)) {
             User user = userDao.getUserByAccount(account);
             if (user != null) {
                 map.put("msg", "该账号已经存在，请登录");
@@ -145,7 +147,7 @@ public class UserServiceImpl implements UserService {
             }
             map.put("msg", "注册失败，请联系管理员");
             return "user/adduser";
-        }else{
+        } else {
             map.put("msg", "填写的账号为空，请重新注册！！！");
             return "login";
         }
