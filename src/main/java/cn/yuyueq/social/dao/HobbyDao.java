@@ -1,6 +1,7 @@
 package cn.yuyueq.social.dao;
 
 import cn.yuyueq.social.domain.node.Hobby;
+import cn.yuyueq.social.domain.node.User;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,5 +31,5 @@ public interface HobbyDao extends Neo4jRepository<Hobby,Long> {
 
     @Query("match (user:User) where user.account={account}\n" +
             "match ((user)-[:Like]->(hobby:Hobby)) return hobby")
-    List<Hobby> getMyHobby(String account);
+    List<Hobby> getMyHobby(@Param("account")String account);
 }

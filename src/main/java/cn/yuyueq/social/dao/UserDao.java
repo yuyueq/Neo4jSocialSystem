@@ -44,4 +44,6 @@ public interface UserDao extends Neo4jRepository<User,Long> {
 
     @Query("match (user:User) where user.account={account} set user.imgurl={imgurl} return count(user)")
     Long fiximg(String account,String imgurl);
+
+
 }

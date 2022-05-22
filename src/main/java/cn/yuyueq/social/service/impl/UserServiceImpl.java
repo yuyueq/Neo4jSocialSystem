@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RecommendDao recommendDao;
 
+    @Autowired
+    RecommendUserServiceImpl recommendUserService;
+
     public static HashSet<User> subList(ArrayList<User> list, int length, String account) {
         HashSet<User> res = new HashSet<>();
         int range = Math.min(list.size(), length);
@@ -89,11 +92,14 @@ public class UserServiceImpl implements UserService {
         // 读取推荐用户列表
         ArrayList<User> byfriend = (ArrayList<User>) recommendDao.byFriend(user.getAccount());
         ArrayList<User> byshare = (ArrayList<User>) recommendDao.byshare(user.getAccount());
-        ArrayList<User> byhobby = (ArrayList<User>) recommendDao.byHobby(user.getAccount());
+
+        HashSet<User> users = recommendUserService.SimilarInterests(user.getAccount());
+        //ArrayList<User> byhobby = (ArrayList<User>) recommendDao.byHobby(user.getAccount());
 
         paramMap.put("byfriend", subList(byfriend, 3, user.getAccount()));
         paramMap.put("byshare", subList(byshare, 3, user.getAccount()));
-        paramMap.put("byhobby", subList(byhobby, 3, user.getAccount()));
+        paramMap.put("byhobby", users);
+        //paramMap.put("byhobby", subList(byhobby, 3, user.getAccount()));
 
         paramMap.put("shares", shares);
         paramMap.put("user", user);
