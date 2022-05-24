@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String addUser(String account, String password, String age, String gender, String email, String address, String nickname, Map<String, Object> map) {
+    public String addUser(String account, String password, Integer age, String gender, String email, String address, String nickname, Map<String, Object> map) {
 
         if (StrUtil.isNotBlank(account)) {
             User user = userDao.getUserByAccount(account);

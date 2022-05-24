@@ -89,7 +89,7 @@ neo4j-admin dump --database=graph.db --to=D:\database\neo4j-community-3.5.6-wind
 
 
 ```plain
-neo4j-admin load --from=D:\database\neo4j-community-3.5.6-windows\graph.db.dump --database=graph.db --force
+neo4j-admin load --from=D:\IDEA2021\IdeaProject\Neo4jSocialSystem-\database\graph.db.dump --database=graph.db --force
 ```
 
 

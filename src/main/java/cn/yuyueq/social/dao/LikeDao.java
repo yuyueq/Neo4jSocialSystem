@@ -18,4 +18,6 @@ public interface LikeDao extends Neo4jRepository<Like,Long> {
             "match (hobby:Hobby) where ID(hobby)={hobbyid}\n" +
             "match (user)-[like:Like]-(hobby) delete like return count(like)")
     Integer unlikeHobby(String account, Long hobbyid);
+
+
 }
