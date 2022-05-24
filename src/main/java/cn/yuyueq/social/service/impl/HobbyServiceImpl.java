@@ -59,8 +59,8 @@ public class HobbyServiceImpl implements HobbyService {
         Integer follower_num = followDao.getPeopleWhoFollowMe(user.getAccount()).size();
         map.put("myfollowing", following_num);
         map.put("follower", follower_num);
-        map.put("hobbies", res);
         map.put("myhobbies", myhobbies);
+        map.put("hobbies", res);
         map.put("user", user);
         return "hobbys";
     }

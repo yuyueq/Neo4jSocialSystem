@@ -1,14 +1,13 @@
 package cn.yuyueq.social.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import cn.yuyueq.social.dao.FollowDao;
-import cn.yuyueq.social.dao.RecommendDao;
-import cn.yuyueq.social.dao.ShareDao;
-import cn.yuyueq.social.dao.UserDao;
+import cn.yuyueq.social.dao.*;
+import cn.yuyueq.social.domain.node.Hobby;
 import cn.yuyueq.social.domain.node.Share;
 import cn.yuyueq.social.domain.node.User;
 import cn.yuyueq.social.domain.util.ResponseInfo;
 import cn.yuyueq.social.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -26,6 +27,7 @@ import java.util.Map;
  * @author liangyihui.net
  * @since 2022/3/16
  */
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -40,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     RecommendDao recommendDao;
+
+    @Autowired
+    HobbyDao hobbyDao;
 
     @Autowired
     RecommendUserServiceImpl recommendUserService;
@@ -94,8 +99,20 @@ public class UserServiceImpl implements UserService {
         ArrayList<User> myFollowing = (ArrayList<User>) followDao.getMyFollowing(user.getAccount());
         byfriend.removeAll(myFollowing);
         ArrayList<User> byshare = (ArrayList<User>) recommendDao.byshare(user.getAccount());
-
+        byshare.removeAll(myFollowing);
         HashSet<User> users = recommendUserService.SimilarInterests(user.getAccount());
+        myFollowing.forEach(users::remove);
+
+        List<Hobby> userHobby = hobbyDao.getMyHobby(user.getAccount());
+        StringBuilder stringBuilder = new StringBuilder();
+        userHobby.stream().map(hobby->{
+            stringBuilder.append(hobby.getHname()+"\t");
+            //log.info("______"+stringBuilder);
+            return stringBuilder;
+        }).collect(Collectors.toList());
+
+
+        user.setHobbyList(stringBuilder.toString());
         //ArrayList<User> byhobby = (ArrayList<User>) recommendDao.byHobby(user.getAccount());
 
         paramMap.put("byfriend", subList(byfriend, 3, user.getAccount()));

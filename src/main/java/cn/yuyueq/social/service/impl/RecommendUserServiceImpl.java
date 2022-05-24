@@ -128,6 +128,8 @@ public class RecommendUserServiceImpl implements RecommendUserService {
                 .bind(user.getAccount()).to("account")
                 .fetchAs(String.class)
                 .all();
+        List<User> myFollowing = followDao.getMyFollowing(user.getAccount());
+
         for (String account : accounts) {
             String wrapper = "MATCH (p1:User {account:$account1})-[:Like]->(hobby1) WITH p1, collect(id(hobby1)) AS p1Hobby MATCH (p2:User {account:$account2})-[:Like]->(cuisine2) WITH p1, p1Hobby, p2, collect(id(cuisine2)) AS p2Hobby RETURN p1.account AS from, p2.account AS to, algo.similarity.jaccard(p1Hobby, p2Hobby) AS similarity ";
             Collection<Map<String, Object>> sames = neo4jClient.query(wrapper).bind(user.getAccount()).to("account1")
@@ -135,15 +137,27 @@ public class RecommendUserServiceImpl implements RecommendUserService {
             List<Map<String, Object>> collect = sames.stream().collect(Collectors.toList());
             collect.stream().map(m -> {
                 double similarity = (double) m.get("similarity");
-                if (similarity >= SIMiILAR) {
-                    res.add(userDao.getUserByAccount((String) m.get("to")));
+                User sameUser = userDao.getUserByAccount((String) m.get("to"));
+                List<Hobby> userHobby = hobbyDao.getMyHobby((String) m.get("to"));
+                StringBuilder stringBuilder = new StringBuilder();
+                userHobby.stream().map(hobby->{
+                    stringBuilder.append(hobby.getHname()+"\t");
+                    //log.info("______"+stringBuilder);
+                    return stringBuilder;
+                }).collect(Collectors.toList());
+
+                sameUser.setHobbyList(stringBuilder.toString());
+
+                if (!myFollowing.contains(sameUser)) {
+                    if (similarity >= SIMiILAR) {
+                        res.add(sameUser);
+                    }
                 }
                 return res;
             }).collect(Collectors.toList());
-            log.info("_____________________" + res);
+            //log.info("_____________________" + res);
         }
         //HashSet<User> users = SimilarInterests(user.getAccount());
-
         Integer following_num = followDao.getMyFollowing(user.getAccount()).size();
         Integer follower_num = followDao.getPeopleWhoFollowMe(user.getAccount()).size();
         map.put("myfollowing", following_num);

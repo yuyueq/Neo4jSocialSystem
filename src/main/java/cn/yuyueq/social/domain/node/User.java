@@ -39,4 +39,6 @@ public class User extends BaseNode {
 
     @Relationship(type = "Publish", direction = Direction.OUTGOING)
     private List<Publish> myshares;
+
+    private String hobbyList;
 }
